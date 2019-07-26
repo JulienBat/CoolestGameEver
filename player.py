@@ -5,7 +5,7 @@ Released under the GNU General Public License
 
 This module is used to hold the Player class. The Player represents the user-controlled sprite on the screen.
 """
-import pygame
+import pygame, os
 
 import constants
 import utils
@@ -45,7 +45,7 @@ class Player(pygame.sprite.Sprite):
         # Call the parent's constructor
         pygame.sprite.Sprite.__init__(self)
 
-        sprite_sheet = SpriteSheet("adventurer-1.3-Sheet.png")
+        sprite_sheet = SpriteSheet(os.path.join("ressources","images","player","sprite-sheet.png"))
         
         # Load all the idle images right
         image = sprite_sheet.get_image(0, 0, 50, 37)

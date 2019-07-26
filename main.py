@@ -12,7 +12,7 @@ http://gaurav.munjal.us/Universal-LPC-Spritesheet-Character-Generator/#
 https://itch.io/game-assets/free/tag-2d
 """
 
-VERSION = 0.1
+VERSION = "0.0.1"
 
 import pygame
 

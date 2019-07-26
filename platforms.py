@@ -11,12 +11,15 @@ import utils
 
 from spritesheet_functions import SpriteSheet
 
-GRASS_LEFT            = "13.png"
-GRASS_RIGHT           = "15.png"
-GRASS_MIDDLE          = "14.png"
-TOP_GRASS_LEFT        = "1.png"
-TOP_GRASS_RIGHT       = "3.png"
-TOP_GRASS_MIDDLE      = "2.png"
+GRASS_LEFT            = os.path.join("tiles","x64","13.png")
+GRASS_RIGHT           = os.path.join("tiles","x64","15.png")
+GRASS_MIDDLE          = os.path.join("tiles","x64","14.png")
+TOP_GRASS_LEFT        = os.path.join("tiles","x64","1.png")
+TOP_GRASS_RIGHT       = os.path.join("tiles","x64","3.png")
+TOP_GRASS_MIDDLE      = os.path.join("tiles","x64","2.png")
+TREE_1                = os.path.join("tiles","x64","Tree_1.png")
+TREE_2                = os.path.join("tiles","x64","Tree_2.png")
+TREE_3                = os.path.join("tiles","x64","Tree_3.png")
 
 class Platform(pygame.sprite.Sprite):
     """ Platform the user can jump on """

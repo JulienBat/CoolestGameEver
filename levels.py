@@ -193,7 +193,8 @@ class Level_02(Level):
                   [platforms.GRASS_RIGHT, 1206, 550],
                   [platforms.TOP_GRASS_LEFT, 1400, 450],
                   [platforms.TOP_GRASS_MIDDLE, 1528, 450],
-                  [platforms.TOP_GRASS_RIGHT, 1656, 450]
+                  [platforms.TOP_GRASS_RIGHT, 1656, 450],
+                  [platforms.TREE_2, 1800, 419]
                   ]
 
 
