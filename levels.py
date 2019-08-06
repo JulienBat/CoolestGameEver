@@ -111,18 +111,18 @@ class Level_01(Level):
         self.preced_city = 0
 
         # Array with type of platform, and x, y location of the platform.
-        level = [ [platforms.GRASS_LEFT, 500, 600],
-                  [platforms.GRASS_MIDDLE, 628, 600],
-                  [platforms.GRASS_RIGHT, 756, 600],
-                  [platforms.GRASS_LEFT, 950, 550],
-                  [platforms.GRASS_MIDDLE, 1078, 550],
-                  [platforms.GRASS_RIGHT, 1206, 550],
-                  [platforms.GRASS_LEFT, 1400, 450],
-                  [platforms.GRASS_MIDDLE, 1528, 450],
-                  [platforms.GRASS_RIGHT, 1656, 450],
-                  [platforms.TOP_GRASS_LEFT, 1750, 320],
-                  [platforms.TOP_GRASS_MIDDLE, 1878, 320],
-                  [platforms.TOP_GRASS_RIGHT, 2006, 320],
+        level = [ [platforms.X128_PLATFORM_GRASS_LEFT, 500, 600],
+                  [platforms.X128_PLATFORM_GRASS_MIDDLE, 628, 600],
+                  [platforms.X128_PLATFORM_GRASS_RIGHT, 756, 600],
+                  [platforms.X128_PLATFORM_GRASS_LEFT, 950, 550],
+                  [platforms.X128_PLATFORM_GRASS_MIDDLE, 1078, 550],
+                  [platforms.X128_PLATFORM_GRASS_RIGHT, 1206, 550],
+                  [platforms.X128_PLATFORM_GRASS_LEFT, 1400, 450],
+                  [platforms.X128_PLATFORM_GRASS_MIDDLE, 1528, 450],
+                  [platforms.X128_PLATFORM_GRASS_RIGHT, 1656, 450],
+                  [platforms.X128_TOP_GRASS_LEFT, 1750, 320],
+                  [platforms.X128_TOP_GRASS_MIDDLE, 1878, 320],
+                  [platforms.X128_TOP_GRASS_RIGHT, 2006, 320],
                   ]
 
 
@@ -135,7 +135,7 @@ class Level_01(Level):
             self.platform_list.add(block)
         
         # Add a custom moving platform
-        block = platforms.MovingPlatform(platforms.GRASS_LEFT)
+        block = platforms.MovingPlatform(platforms.X128_PLATFORM_GRASS_LEFT)
         block.rect.x = 2100
         block.rect.y = 280
         block.boundary_left = 2100
@@ -146,7 +146,7 @@ class Level_01(Level):
         self.platform_list.add(block)
         
         # Add a custom moving platform
-        block = platforms.MovingPlatform(platforms.GRASS_MIDDLE)
+        block = platforms.MovingPlatform(platforms.X128_PLATFORM_GRASS_MIDDLE)
         block.rect.x = 2228
         block.rect.y = 280
         block.boundary_left = 2228
@@ -157,7 +157,7 @@ class Level_01(Level):
         self.platform_list.add(block)
         
         # Add a custom moving platform
-        block = platforms.MovingPlatform(platforms.GRASS_RIGHT)
+        block = platforms.MovingPlatform(platforms.X128_PLATFORM_GRASS_RIGHT)
         block.rect.x = 2356
         block.rect.y = 280
         block.boundary_left = 2356
@@ -185,16 +185,16 @@ class Level_02(Level):
         self.preced_city = 0
 
         # Array with type of platform, and x, y location of the platform.
-        level = [ [platforms.TOP_GRASS_LEFT, 500, 600],
-                  [platforms.TOP_GRASS_MIDDLE, 628, 600],
-                  [platforms.TOP_GRASS_RIGHT, 756, 600],
-                  [platforms.GRASS_LEFT, 950, 550],
-                  [platforms.GRASS_MIDDLE, 1078, 550],
-                  [platforms.GRASS_RIGHT, 1206, 550],
-                  [platforms.TOP_GRASS_LEFT, 1400, 450],
-                  [platforms.TOP_GRASS_MIDDLE, 1528, 450],
-                  [platforms.TOP_GRASS_RIGHT, 1656, 450],
-                  [platforms.TREE_2, 1800, 419]
+        level = [ [platforms.X128_TOP_GRASS_LEFT, 500, 600],
+                  [platforms.X128_TOP_GRASS_MIDDLE, 628, 600],
+                  [platforms.X128_TOP_GRASS_RIGHT, 756, 600],
+                  [platforms.X128_PLATFORM_GRASS_LEFT, 950, 550],
+                  [platforms.X128_PLATFORM_GRASS_MIDDLE, 1078, 550],
+                  [platforms.X128_PLATFORM_GRASS_RIGHT, 1206, 550],
+                  [platforms.X128_TOP_GRASS_LEFT, 1400, 450],
+                  [platforms.X128_TOP_GRASS_MIDDLE, 1528, 450],
+                  [platforms.X128_TOP_GRASS_RIGHT, 1656, 450],
+                  [platforms.X128_TREE_2, 1800, 419]
                   ]
 
 
