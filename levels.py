@@ -118,44 +118,24 @@ class Level_01(Level):
         self.preced_city = 0
 
         # Array with type of platform, and x, y location of the platform.
-        level_platforms = [ [platforms.X128_PLATFORM_GRASS_LEFT, 500, 600],
-                  [platforms.X128_PLATFORM_GRASS_MIDDLE, 628, 600],
-                  [platforms.X128_PLATFORM_GRASS_RIGHT, 756, 600],
-                  [platforms.X128_PLATFORM_GRASS_LEFT, 950, 550],
-                  [platforms.X128_PLATFORM_GRASS_MIDDLE, 1078, 550],
-                  [platforms.X128_PLATFORM_GRASS_RIGHT, 1206, 550],
-                  [platforms.X128_PLATFORM_GRASS_LEFT, 1400, 450],
-                  [platforms.X128_PLATFORM_GRASS_MIDDLE, 1528, 450],
-                  [platforms.X128_PLATFORM_GRASS_RIGHT, 1656, 450],
-                  [platforms.X128_TOP_GRASS_LEFT, 1750, 320],
-                  [platforms.X128_TOP_GRASS_MIDDLE, 1878, 320],
-                  [platforms.X128_TOP_GRASS_RIGHT, 2006, 320],
-                  ]
-                  
-        level_surroungings = [[platforms.X128_TREE_2, 100, 419],
-                  [platforms.X64_TREE_3, 1000, 420],
-                  [platforms.X64_TREE_2, 1350, 569],
-                  [platforms.X128_TREE_3, 2200, 445]
-                  ]
+        level_surroungings,level_platforms = utils.load_level("level01")
 
 
         # Go through the array above and add platforms
         for platform in level_platforms:
-            block = platforms.Platform(platform[0])
-            block.rect.x = platform[1]
-            block.rect.y = platform[2]
-            #block.player = self.player
+            block = platforms.Platform(platforms.plat_dict[platform[0]])
+            block.rect.x = int(platform[1])
+            block.rect.y = int(platform[2])
             self.platform_list.add(block)
             
         for surrounding in level_surroungings:
-            block = platforms.Platform(surrounding[0])
-            block.rect.x = surrounding[1]
-            block.rect.y = surrounding[2]
-            #block.player = self.player
+            block = platforms.Platform(platforms.plat_dict.get(surrounding[0]))
+            block.rect.x = int(surrounding[1])
+            block.rect.y = int(surrounding[2])
             self.surroundings_list.add(block)
         
         # Add a custom moving platform
-        block = platforms.MovingPlatform(platforms.X128_PLATFORM_GRASS_LEFT)
+        block = platforms.MovingPlatform(platforms.plat_dict["X128_PLATFORM_GRASS_LEFT"])
         block.rect.x = 2100
         block.rect.y = 280
         block.boundary_left = 2100
@@ -166,7 +146,7 @@ class Level_01(Level):
         self.platform_list.add(block)
         
         # Add a custom moving platform
-        block = platforms.MovingPlatform(platforms.X128_PLATFORM_GRASS_MIDDLE)
+        block = platforms.MovingPlatform(platforms.plat_dict["X128_PLATFORM_GRASS_MIDDLE"])
         block.rect.x = 2228
         block.rect.y = 280
         block.boundary_left = 2228
@@ -177,7 +157,7 @@ class Level_01(Level):
         self.platform_list.add(block)
         
         # Add a custom moving platform
-        block = platforms.MovingPlatform(platforms.X128_PLATFORM_GRASS_RIGHT)
+        block = platforms.MovingPlatform(platforms.plat_dict["X128_PLATFORM_GRASS_RIGHT"])
         block.rect.x = 2356
         block.rect.y = 280
         block.boundary_left = 2356
@@ -205,37 +185,20 @@ class Level_02(Level):
         self.preced_city = 0
 
         # Array with type of platform, and x, y location of the platform.
-        level = [ [platforms.X128_TOP_GRASS_LEFT, 500, 600],
-                  [platforms.X128_TOP_GRASS_MIDDLE, 628, 600],
-                  [platforms.X128_TOP_GRASS_RIGHT, 756, 600],
-                  [platforms.X128_PLATFORM_GRASS_LEFT, 950, 550],
-                  [platforms.X128_PLATFORM_GRASS_MIDDLE, 1078, 550],
-                  [platforms.X128_PLATFORM_GRASS_RIGHT, 1206, 550],
-                  [platforms.X128_TOP_GRASS_LEFT, 1400, 450],
-                  [platforms.X128_TOP_GRASS_MIDDLE, 1528, 450],
-                  [platforms.X128_TOP_GRASS_RIGHT, 1656, 450]
-                  ]
-                  
-        level_surroungings = [[platforms.X128_TREE_2, 100, 419],
-                  [platforms.X64_TREE_3, 1000, 420],
-                  [platforms.X64_TREE_2, 1800, 569],
-                  [platforms.X128_TREE_3, 2200, 445]
-                  ]
+        level_surroungings,level_platforms = utils.load_level("level02")
 
 
         # Go through the array above and add platforms
-        for platform in level:
-            block = platforms.Platform(platform[0])
-            block.rect.x = platform[1]
-            block.rect.y = platform[2]
-            block.player = self.player
+        for platform in level_platforms:
+            block = platforms.Platform(platforms.plat_dict[platform[0]])
+            block.rect.x = int(platform[1])
+            block.rect.y = int(platform[2])
             self.platform_list.add(block)
             
         for surrounding in level_surroungings:
-            block = platforms.Platform(surrounding[0])
-            block.rect.x = surrounding[1]
-            block.rect.y = surrounding[2]
-            #block.player = self.player
+            block = platforms.Platform(platforms.plat_dict.get(surrounding[0]))
+            block.rect.x = int(surrounding[1])
+            block.rect.y = int(surrounding[2])
             self.surroundings_list.add(block)
         
 

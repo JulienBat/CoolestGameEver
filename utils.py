@@ -13,6 +13,7 @@ import getopt
 import pygame
 from socket import *
 from pygame.locals import *
+import csv
 
 def load_png(name):
     #Charge une image et retourne un objet image
@@ -64,4 +65,45 @@ def load_png_road(name):
         image = image.convert_alpha()
     return image, image.get_rect()
     
+def load_level(name):
+    s_name = os.path.join("levels",name+".s")
+    p_name = os.path.join("levels",name+".p")
+    s_file = open(s_name)
+    p_file = open(p_name)
+    sur = []
+    pla = []
+    s_csv = csv.reader(s_file, delimiter=',')
+    p_csv = csv.reader(p_file, delimiter=',')
+    for s in s_csv:
+        #sur.append([s[0],s[1],s[2]])
+        sur.append(s)
+    for p in p_csv:
+        #pla.append([p[0],p[1],p[2]])
+        pla.append(p)
+    return sur,pla
     
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
