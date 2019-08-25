@@ -125,9 +125,15 @@ class Level_edition(Level):
 
         self.background = utils.load_png_bg("BG.png")
         self.background.set_colorkey(constants.WHITE)
-        self.level_limit = -2000
+        self.level_limit = -10000
         self.next_city = 0
         self.preced_city = 0
+
+def format_to_csv(platform_list):
+    csv = ""
+    for p in platform_list:
+        csv=csv+p.name+","+str(p.real_x)+","+str(p.rect.y)+"\n"
+    return csv
 
 def main():
     pygame.init()
@@ -142,15 +148,14 @@ def main():
     
     edit_bg = pygame.Surface([constants.SCREEN_WIDTH,210])
     edit_bg.fill(constants.BLACK)
+            
+    #level_platforms = pygame.sprite.Group()
     
-    #edit_x64_tree_1 = pygame.Sprite()
-    #edit_x64_tree_1 = pygame.Surface([50,50])
-    #edit_x64_tree_1.fill(constants.BLUE)
-    #edit_x64_tree_1_pos = (0,constants.SCREEN_HEIGHT)
+    actual_sprite = platforms.Platform_edit("X64_TOP_GRASS_MIDDLE")
     
     edit_icons = [["64_1.png","X64_TOP_GRASS_LEFT"],
                   ["64_2.png","X64_TOP_GRASS_MIDDLE"],
-                  ["64_3.png","X64_TOP_GRASS_RIGH"],
+                  ["64_3.png","X64_TOP_GRASS_RIGHT"],
                   ["64_4.png","X64_MIDDLE_GRASS_LEFT"],
                   ["64_5.png","X64_MIDDLE_GRASS_MIDDLE"],
                   ["64_6.png","X64_MIDDLE_GRASS_RIGHT"],
@@ -161,7 +166,21 @@ def main():
                   ["64_11.png","X64_GO_DOWN_GRASS_LEFT"],
                   ["64_12.png","X64_GO_DOWN_GRASS_RIGHT"],
                   ["64_13.png","X64_GO_UP_GRASS_RIGHT"],
-                  ["64_tree1.png","X64_TREE_1"]]
+                  ["64_1.png","X128_TOP_GRASS_LEFT"],
+                  ["64_2.png","X128_TOP_GRASS_MIDDLE"],
+                  ["64_3.png","X128_TOP_GRASS_RIGHT"],
+                  ["64_4.png","X128_MIDDLE_GRASS_LEFT"],
+                  ["64_5.png","X128_MIDDLE_GRASS_MIDDLE"],
+                  ["64_6.png","X128_MIDDLE_GRASS_RIGHT"],
+                  ["64_7.png","X128_BOTTOM_GRASS_LEFT"],
+                  ["64_8.png","X128_BOTTOM_GRASS_MIDDLE"],
+                  ["64_9.png","X128_BOTTOM_GRASS_RIGHT"],
+                  ["64_10.png","X128_GO_UP_GRASS_LEFT"],
+                  ["64_11.png","X128_GO_DOWN_GRASS_LEFT"],
+                  ["64_12.png","X128_GO_DOWN_GRASS_RIGHT"],
+                  ["64_13.png","X128_GO_UP_GRASS_RIGHT"]]
+                  
+    edit_icons_surrounding = [["64_tree1.png","X64_TREE_1"]]
     
     icon_list = pygame.sprite.Group()
     edit_x = 0
@@ -204,12 +223,14 @@ def main():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     done = True
-                if event.key == pygame.K_LEFT or event.key == pygame.K_a:
+                if event.key == pygame.K_LEFT or event.key == pygame.K_a: #left / q (french)
                     player.go_left()
-                if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
+                if event.key == pygame.K_RIGHT or event.key == pygame.K_d: # right / d (french)
                     player.go_right()
-                if event.key == pygame.K_UP or event.key == pygame.K_SPACE:
+                if event.key == pygame.K_UP or event.key == pygame.K_SPACE: # up / space
                     player.jump()
+                if event.key == pygame.K_z: # w (french)
+                    print(format_to_csv(current_level.platform_list))
 
             if event.type == pygame.KEYUP:
                 if (event.key == pygame.K_LEFT or event.key == pygame.K_a) and player.change_x < 0:
@@ -221,8 +242,22 @@ def main():
                 pos = pygame.mouse.get_pos()
                 for i in icon_list:
                     if i.rect.collidepoint(pos):
+                        actual_sprite=platforms.Platform_edit(i.name)
                         print("selected: "+i.name)
+                if pos[1] < constants.SCREEN_HEIGHT:
+                    #p = platforms.Platform(platforms.plat_dict[actual_sprite.name])
+                    p = platforms.Platform_edit(actual_sprite.name)
+                    p.rect.x = actual_sprite.rect.x
+                    p.real_x = p.rect.x - current_level.world_shift
+                    p.rect.y = actual_sprite.rect.y
+                    current_level.platform_list.add(p)
+                    
 
+        # Update the editing sprite
+        pos = pygame.mouse.get_pos()
+        actual_sprite.rect.x=64*(pos[0]//64)
+        actual_sprite.rect.y=64*(pos[1]//64)+(constants.SCREEN_HEIGHT%64)
+        
         # Update the player.
         active_sprite_list.update()
 
@@ -234,12 +269,16 @@ def main():
             diff = player.hitbox.rect.x - (constants.SCREEN_WIDTH-400)
             player.hitbox.rect.x = (constants.SCREEN_WIDTH-400)
             current_level.shift_world(-diff)
+            for p in current_level.platform_list:
+                p.rect.x -= diff
 
         # If the player gets near the left side, shift the world right (+x)
         if player.hitbox.rect.x <= 300 and not current_level.is_begin_level():
             diff = 300 - player.hitbox.rect.x
             player.hitbox.rect.x = 300
             current_level.shift_world(diff)
+            for p in current_level.platform_list:
+                p.rect.x += diff
 
         # If the player gets to the end of the level, go to the next level
         #current_position = player.hitbox.rect.x + current_level.world_shift
@@ -257,11 +296,13 @@ def main():
         # ALL CODE TO DRAW SHOULD GO BELOW THIS COMMENT
         current_level.draw(screen)
         active_sprite_list.draw(screen)
+        current_level.platform_list.draw(screen)
         
         #Editing
         screen.blit(edit_bg,(0,constants.SCREEN_HEIGHT))
         #screen.blit(edit_x64_tree_1,edit_x64_tree_1_pos)
         icon_list.draw(screen)
+        screen.blit(actual_sprite.image,actual_sprite.rect)
 
         # ALL CODE TO DRAW SHOULD GO ABOVE THIS COMMENT
 

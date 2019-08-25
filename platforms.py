@@ -98,6 +98,20 @@ class Platform(pygame.sprite.Sprite):
         # Grab the image for this platform
         self.image,self.rect = utils.load_png(sprite)
 
+class Platform_edit(pygame.sprite.Sprite):
+    """ Platform the user can jump on """
+
+    def __init__(self, sprite):
+        """ Platform constructor. Assumes constructed with user passing in
+            an array of 5 numbers like what's defined at the top of this
+            code. """
+        pygame.sprite.Sprite.__init__(self)
+        
+        # Grab the image for this platform
+        self.image,self.rect = utils.load_png(plat_dict[sprite])
+        self.name = sprite
+        self.real_x = 0
+
 
 class MovingPlatform(Platform):
     """ This is a fancier platform that can actually move. """
