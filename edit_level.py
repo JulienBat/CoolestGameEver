@@ -20,6 +20,7 @@ import constants
 import utils
 import cities
 import platforms
+import edit_sprites
 
 from player import Player
 
@@ -132,19 +133,46 @@ def main():
     pygame.init()
 
     # Set the height and width of the screen
-    size = [constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT+200]
+    size = [constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT+210]
     screen = pygame.display.set_mode(size)
     if constants.FULLSCREEN:
         screen = pygame.display.set_mode(size,pygame.FULLSCREEN)
 
     pygame.display.set_caption("Level Edition Console")
     
-    edit_bg = pygame.Surface([constants.SCREEN_WIDTH,200])
+    edit_bg = pygame.Surface([constants.SCREEN_WIDTH,210])
     edit_bg.fill(constants.BLACK)
     
-    edit_x64_tree_1 = pygame.Sprite()
+    #edit_x64_tree_1 = pygame.Sprite()
     #edit_x64_tree_1 = pygame.Surface([50,50])
+    #edit_x64_tree_1.fill(constants.BLUE)
     #edit_x64_tree_1_pos = (0,constants.SCREEN_HEIGHT)
+    
+    edit_icons = [["64_1.png","X64_TOP_GRASS_LEFT"],
+                  ["64_2.png","X64_TOP_GRASS_MIDDLE"],
+                  ["64_3.png","X64_TOP_GRASS_RIGH"],
+                  ["64_4.png","X64_MIDDLE_GRASS_LEFT"],
+                  ["64_5.png","X64_MIDDLE_GRASS_MIDDLE"],
+                  ["64_6.png","X64_MIDDLE_GRASS_RIGHT"],
+                  ["64_7.png","X64_BOTTOM_GRASS_LEFT"],
+                  ["64_8.png","X64_BOTTOM_GRASS_MIDDLE"],
+                  ["64_9.png","X64_BOTTOM_GRASS_RIGHT"],
+                  ["64_10.png","X64_GO_UP_GRASS_LEFT"],
+                  ["64_11.png","X64_GO_DOWN_GRASS_LEFT"],
+                  ["64_12.png","X64_GO_DOWN_GRASS_RIGHT"],
+                  ["64_13.png","X64_GO_UP_GRASS_RIGHT"],
+                  ["64_tree1.png","X64_TREE_1"]]
+    
+    icon_list = pygame.sprite.Group()
+    edit_x = 0
+    edit_y = constants.SCREEN_HEIGHT+10
+    for i in edit_icons:
+        e = edit_sprites.Icon(i[0],i[1],(edit_x,edit_y))
+        icon_list.add(e)
+        edit_x+=50
+        if edit_x > (constants.SCREEN_WIDTH-50):
+            edit_y+=50
+            edit_x=0
 
     # Create the player
     player = Player()
@@ -188,6 +216,12 @@ def main():
                     player.stop()
                 if (event.key == pygame.K_RIGHT or event.key == pygame.K_d) and player.change_x > 0:
                     player.stop()
+                    
+            if event.type == pygame.MOUSEBUTTONUP:
+                pos = pygame.mouse.get_pos()
+                for i in icon_list:
+                    if i.rect.collidepoint(pos):
+                        print("selected: "+i.name)
 
         # Update the player.
         active_sprite_list.update()
@@ -226,7 +260,8 @@ def main():
         
         #Editing
         screen.blit(edit_bg,(0,constants.SCREEN_HEIGHT))
-        screen.blit(edit_x64_tree_1,edit_x64_tree_1_pos)
+        #screen.blit(edit_x64_tree_1,edit_x64_tree_1_pos)
+        icon_list.draw(screen)
 
         # ALL CODE TO DRAW SHOULD GO ABOVE THIS COMMENT
 

@@ -65,6 +65,16 @@ def load_png_road(name):
         image = image.convert_alpha()
     return image, image.get_rect()
     
+def load_png_edit_icon(name):
+    #Charge une image et retourne un objet image
+    fullname = os.path.join("ressources","images","edit_icons",name)
+    image = pygame.image.load(fullname)
+    if image.get_alpha() is None:
+        image = image.convert()
+    else:
+        image = image.convert_alpha()
+    return image, image.get_rect()
+    
 def load_level(name):
     s_name = os.path.join("levels",name+".s")
     p_name = os.path.join("levels",name+".p")
